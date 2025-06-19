@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Tache Finale" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <% if admin_user_signed_in? %>
+      <h1>Welcome Home, <%= current_admin_user.email%></h1>
+      <%= link_to'Sign out', destroy_admin_user_session_path, data: {method: :delete } %>
+    <%else%>
+    <h1>Home</h1>
+      <%= link_to'Sign in', new_admin_user_session_path %>
+    <%end%>
+    <p>
+  <td>
+    <% if params[:controller] == "appointments" %>
+    <%= link_to 'Appointments', appointments_path, class:"active"%>
+    <%else %>
+    <%= link_to 'Appointments', appointments_path, class:""%>
+    <% end%>
+  </td>
+  <td>
+    <%if params[:controller] == "diagnostics" %>
+      <%= link_to 'Diagnostics', diagnostics_path, class:"active"%>
+        <%else%>
+      <%= link_to 'Diagnostics',diagnostics_path, class:""%>
+    <%end%>
+  </td>
+  <td>
+    <%if params[:controller] == "doctors" %>
+      <%= link_to 'Doctors', doctors_path, class:"active"%>
+        <%else%>
+      <%= link_to 'Doctors', doctors_path, class:""%>
+    <%end%>
+  </td>
+  <td>
+    <% if params[:controller] == "medical_reports" %>
+        <%= link_to 'Medical_reports', medical_reports_path, class:"active"%>
+      <%else%>
+        <%= link_to 'Medical_reports', medical_reports_path, class:""%>
+    <%end%>
+  </td>
+  <td>
+    <% if params[:controller] == "medications" %>
+      <%= link_to 'Medications', medications_path, class:"active"%>
+        <%else%>
+      <%= link_to'Medications', medications_path, class:""%>
+    <%end%>
+  </td>
+  <td>
+    <% if params[:controller] == "patients" %>
+       <%= link_to 'Patients', patients_path, class:"active"%>
+      <%else%>
+       <%= link_to'Patients', patients_path, class:""%>
+    <%end%>
+  </td>
+  <td>
+    <% if params[:controller] == "payments" %>
+        <%= link_to 'Payments', payments_path, class:"active"%>
+      <%else%>
+        <%= link_to 'Payments', payments_path, class:""%>
+    <%end%>
+  </td>
+  <td>
+    <% if params[:controller] == "prescriptions" %>
+       <%= link_to 'Prescriptions', prescriptions_path, class:"active"%>
+      <%else%>
+       <%= link_to 'Prescriptions', prescriptions_path, class:""%>
+    <%end%>
+  </td>
+  <td>
+    <% if params[:controller] == "users" %>
+       <%= link_to 'Users', users_path, class:"active"%>
+      <%else%>
+       <%= link_to 'Users',users_path, class:""%>
+    <%end%>
+  </td>
+  <td>
+    <% if params[:controller] == "rooms" %>
+       <%= link_to 'Rooms', rooms_path, class:"active"%>
+      <%else%>
+       <%= link_to 'Rooms', rooms_path, class:""%>
+    <%end%>
+  </td>
+  <td>
+    <% if params[:controller] == "specialities" %>
+       <%= link_to 'Specialities', specialities_path, class:"active"%>
+      <%else%>
+       <%= link_to 'Specialities',specialities_path, class:""%>
+    <%end%>
+  </td>
+</p>
+    <%= yield %>
+  </body>
+</html>

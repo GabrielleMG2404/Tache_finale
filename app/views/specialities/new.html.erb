@@ -1,0 +1,11 @@
+<% content_for :title, "New speciality" %>
+
+<h1>New speciality</h1>
+
+<%= render "form", speciality: @speciality %>
+
+<br>
+
+<div>
+  <%= link_to "Back to specialities", specialities_path %>
+</div>
